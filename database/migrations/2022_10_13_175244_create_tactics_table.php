@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scam_types', function (Blueprint $table) {
+        Schema::create('tactics', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); 
             $table->longText('description');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scam_types');
+        Schema::dropIfExists('tactics');
     }
 };

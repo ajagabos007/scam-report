@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scam_types', function (Blueprint $table) {
+        Schema::create('ecommerce_vendors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); 
+            /**
+             * phone_number
+             * domain 
+             * email 
+             */
+            
             $table->longText('description');
             $table->timestamps();
         });
@@ -28,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scam_types');
+        Schema::dropIfExists('ecommerce_vendors');
     }
 };
