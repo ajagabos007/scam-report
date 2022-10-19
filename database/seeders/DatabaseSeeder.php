@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             EcommerceVendorSeeder::class,
             PlatformSeeder::class,
             TacticSeeder::class,
+            GenderSeeder::class,
         ]);
     }
 }
