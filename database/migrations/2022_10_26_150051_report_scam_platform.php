@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scam_types', function (Blueprint $table) {
+        Schema::create('report_scam_platform', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); 
-            $table->string('slug')->unique();
-            $table->longText('description');
+            $table->integer('report_scam_id');
+            $table->integer('platform_id');
+            $table->string('link');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scam_types');
+        //
     }
 };

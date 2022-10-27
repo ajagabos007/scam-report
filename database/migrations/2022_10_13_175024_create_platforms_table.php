@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('platforms', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); 
+            $table->string('slug')->unique();
             $table->longText('description');
+            $table->text('input_tag_title');
             $table->timestamps();
         });
     }

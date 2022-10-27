@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Platform>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\State>
  */
-class PlatformFactory extends Factory
+class StateFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class PlatformFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->unique()->word(),
-            'description' =>fake()->paragraph(),
-            'input_tag_title'=>fake()->word(),
+            //
         ];
     }
 }

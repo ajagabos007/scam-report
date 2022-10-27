@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('tactics', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); 
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->timestamps();
         });

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreReportScamRequest;
-use App\Http\Requests\UpdateReportScamRequest;
-use App\Models\ReportScam;
+use App\Http\Requests\StoreStateRequest;
+use App\Http\Requests\UpdateStateRequest;
+use App\Models\State;
 
-class ReportScamController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class ReportScamController extends Controller
      */
     public function index()
     {
-        $report_scams = ReportScam::all();
-        return view('report_scams.index', ['report_scams'=>$report_scams]);
+        //
     }
 
     /**
@@ -26,16 +25,16 @@ class ReportScamController extends Controller
      */
     public function create()
     {
-        return view('report_scams.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreReportScamRequest  $request
+     * @param  \App\Http\Requests\StoreStateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReportScamRequest $request)
+    public function store(StoreStateRequest $request)
     {
         //
     }
@@ -43,10 +42,10 @@ class ReportScamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ReportScam  $reportScam
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function show(ReportScam $reportScam)
+    public function show(State $state)
     {
         //
     }
@@ -54,10 +53,10 @@ class ReportScamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ReportScam  $reportScam
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function edit(ReportScam $reportScam)
+    public function edit(State $state)
     {
         //
     }
@@ -65,11 +64,11 @@ class ReportScamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateReportScamRequest  $request
-     * @param  \App\Models\ReportScam  $reportScam
+     * @param  \App\Http\Requests\UpdateStateRequest  $request
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateReportScamRequest $request, ReportScam $reportScam)
+    public function update(UpdateStateRequest $request, State $state)
     {
         //
     }
@@ -77,10 +76,10 @@ class ReportScamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ReportScam  $reportScam
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReportScam $reportScam)
+    public function destroy(State $state)
     {
         //
     }

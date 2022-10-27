@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 
-class Asset extends Model
+class State extends Model
 {
     use HasFactory;
     use Sluggable;
@@ -26,7 +26,7 @@ class Asset extends Model
         ];
     }
 
-    public function states(){
-        return $this->hasMany(State::class);
+    public function country(){
+        return $this->belongsTo(Country::class);
     }
 }

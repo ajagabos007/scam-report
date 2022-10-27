@@ -37,8 +37,7 @@ class AssetSeeder extends Seeder
             ['name' => "Personal Information",
              'description' => 'These are informations such as credit card number, National ID Card, etc.'
             ]
-            )
-        )
+        ))
         ->create();
     
     }

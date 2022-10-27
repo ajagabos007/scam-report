@@ -35,7 +35,7 @@
 
 <body class="body-wrapper">    
     
-    <div id="preloader" class="preloader">
+    <!-- <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
             </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- welcome content start from here -->
 
@@ -125,7 +125,7 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="header-logo">
                         <div class="logo">
-                            <a href="index-4.html">
+                            <a href="/">
                                 <img src="{{asset('theme/assets/img/ScamReport-white.png')}}" width="200px" height="35px" alt="logo">
                             </a>
                         </div>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="header-right d-flex align-items-center">
                         <div class="header-btn-cta">
-                            <a href="scamreminder.html" class="theme-btn">Report a Scam <i class="fas fa-arrow-right"></i></a>
+                            <a href="{{route('report-scams.create')}}" class="theme-btn">Report a Scam <i class="fas fa-arrow-right"></i></a>
                         </div>
                         <div class="mobile-nav-bar d-block ml-3 ml-sm-5 d-xl-none">
                             <div class="mobile-nav-wrap">                    
@@ -179,7 +179,7 @@
                                     <div class="action-bar">
                                         <a href="mailto:modinatheme@gmail.com"><i class="fal fa-envelope-open-text"></i>support@scamreport.ng</a>
                                         <a href="tel:123-456-7890"><i class="fal fa-phone"></i>+234 701 751 8376</a>
-                                        <a href="scamreminder.html" class="d-btn theme-btn black">Report A Scam</a>
+                                        <a href="{{route('report-scams.create')}}" class="d-btn theme-btn black">Report A Scam</a>
                                     </div>
                                 </div>                            
                             </div>
@@ -201,8 +201,8 @@
                                 <span>Scam_Report Nigeria</span>
                                 <h1>Best IT Solutions To Combat Fraud</h1>
                                 <p>Help make the internet a safer place for e-commerce, by reporting any e-commerce fraud which might have cost you a fortune.</p>
-                                <a href="scamreminder.html" class="theme-btn">Report A Scam <i class="fas fa-arrow-right"></i></a>
-                                <a href="scamreminder.html" class="theme-btn minimal-btn">Learn More<i class="fas fa-arrow-right"></i></a>
+                                <a href="{{route('report-scams.create')}}" class="theme-btn">Report A Scam <i class="fas fa-arrow-right"></i></a>
+                                <a href="{{route('report-scams.index')}}" class="theme-btn minimal-btn">Learn More<i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-6 mt-5 mt-lg-0 col-12 pl-lg-5">
@@ -809,7 +809,7 @@
                 <div class="row justify-content-between">
                     <div class="col-md-6 col-xl-3 col-12 pr-xl-4">
                         <div class="single-footer-wid site_footer_widget">
-                            <a href="index.html">
+                            <a href="/">
                                 <img src="{{asset('theme/assets/img/footer-whitel-logo.png')}}" alt="">
                             </a>
                             <p class="mt-4">Sed ut perspiciatis unde omnis natus voluptatem accusa ntiumy doloremque laudantium.omnis natus voluptatem accusa ntiumy doloremque laudantium</p>
