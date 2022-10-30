@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Asset>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Assetable>
  */
-class AssetFactory extends Factory
+class AssetableFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class AssetFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->unique()->word(),
-            'description' =>fake()->paragraph(),
-            'input_tag_title'=>fake()->word(),
+            //
         ];
     }
 }

@@ -37,16 +37,34 @@
             <!-- Scammer Information -->
             <div id="scam_information" x-show="open_scam_info_form">
                      
-                <div class="mb-6">
-                    <label for="scam_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">The Scam Type</label>
-                    <select id="scam_type" wire:model.lazy='scam.type_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option>Select scam type</option>
-                        @foreach($scam_types as $scam_type)
-                        <option value="{{$scam_type->id}}">{{$scam_type->name}}</option>
-                        @endforeach
-                    </select>
-                    <x-jet-input-error for="scam.type_id"></x-jet-input-error>
-
+                <div class="mb-6 shadow px-2 pb-2 bg-slate-200 ">
+                     <div class="mb-2 w-fit">
+                        <h5 class="bg-slate-500 text-sm text-white  text-end px-2">The Scam</h5>
+                    </div>
+                   
+                    <div class="sm:flex gap-2">
+                        <div class="mb-2 w-full">
+                            <label for="scam_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
+                            <x-jet-input type="text" id="scam_status" wire:model.lazy='scammer.name' class="mt-0 h-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.name')? 'is-invalid ': ''}}" placeholder="Fullname" />
+                            <x-jet-input-error for="scam.type_id"></x-jet-input-error>
+                            <label for="red-toggle" class="inline-flex relative items-center mr-5 cursor-pointer">
+                            <input type="checkbox" value="" id="red-toggle" class="sr-only peer"/>
+                                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Red</span>
+                            </label>
+                        </div>
+                        <div class="mb-2 w-full">
+                            <label for="scam_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">The Scam Type</label>
+                            <select id="scam_type" wire:model.lazy='scam.type_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option>Select scam type</option>
+                                @foreach($scam_types as $scam_type)
+                                <option value="{{$scam_type->id}}">{{$scam_type->name}}</option>
+                                @endforeach
+                            </select>
+                            <x-jet-input-error for="scam.type_id"></x-jet-input-error>
+                        </div>
+                    
+                    </div>
                 </div>
                 <!-- Scammer bio -->
 
@@ -130,15 +148,15 @@
                             @foreach($platforms as $platform)
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="flex items-center">
-                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="checked_platform.{{$platform->slug}}.accepted" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="platform.{{$platform->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="checkbox-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$platform->name}}</label>
                                     </div>
-                                    <x-jet-input-error for="checked_platform.{{$platform->slug}}.accepted"></x-jet-input-error>
+                                    <x-jet-input-error for="platform.{{$platform->slug}}.checked"></x-jet-input-error>
                                     
-                                    <div x-data="{ open:  @js($checked_platform[$platform->slug]['accepted']?? false ))}">
+                                    <div x-data="{ open:  @js($platform[$platform->slug]['checked']?? false ))}">
                                         <div x-show='open'>
-                                            <input type="text" id="scammer_checked_platform_{{$platform->slug}}_link" wire:model.lazy="checked_platform.{{$platform->slug}}.link"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('checked_platform.'.$platform->slug.'.link')? 'is-invalid ': ''}}" placeholder="{{$platform->input_tag_title}}"/>
-                                            <x-jet-input-error for="checked_platform.{{$platform->slug}}.link"></x-jet-input-error>
+                                            <input type="text" id="scammer_platform_{{$platform->slug}}_link" wire:model.lazy="platform.{{$platform->slug}}.link"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('platform.'.$platform->slug.'.link')? 'is-invalid ': ''}}" placeholder="{{$platform->input_tag_title}}"/>
+                                            <x-jet-input-error for="platform.{{$platform->slug}}.link"></x-jet-input-error>
                                         </div>
                                     </div>
 
@@ -171,15 +189,22 @@
                         <input type="text" id="reporter_name" wire:model.lazy='reporter.name' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.name')? 'is-invalid ': ''}}" placeholder="Fullname" />
                         <x-jet-input-error for="reporter.name"></x-jet-input-error>
                     </div>
-                    <div class="mb-6">
-                        <label for="reporter_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Gender</label>
-                        <select id="reporter_gender" name="reporter_gender" wire:model.lazy='reporter.gender_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.gender_id')? 'is-invalid ': ''}}">
-                            <option>select gender</option>
-                            @foreach($genders as $gender)
-                            <option value="{{$gender->id}}">{{$gender->name}}</option>
-                            @endforeach
-                        </select>
-                        <x-jet-input-error for="reporter.gender_id"></x-jet-input-error>
+                    <div class="sm:flex gap-2">
+                        <div class="mb-6 w-full">
+                            <label for="reporter_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Gender</label>
+                            <select id="reporter_gender" name="reporter_gender" wire:model.lazy='reporter.gender_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.gender_id')? 'is-invalid ': ''}}">
+                                <option>select gender</option>
+                                @foreach($genders as $gender)
+                                <option value="{{$gender->id}}">{{$gender->name}}</option>
+                                @endforeach
+                            </select>
+                            <x-jet-input-error for="reporter.gender_id"></x-jet-input-error>
+                        </div>
+                        <div class="mb-6 w-full">
+                            <label for="reporter_age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Age</label>
+                            <input type="month" id="reporter_name" wire:model.lazy='reporter.age' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.name')? 'is-invalid ': ''}}" placeholder="Fullname" />
+                            <x-jet-input-error for="reporter.gender_id"></x-jet-input-error>
+                        </div>
                     </div>
                 </div>
 
@@ -238,11 +263,16 @@
                             @foreach($assets as $asset)
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="flex items-center">
-                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="lost_asset.{{$asset->slug}}" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="lost_asset.{{$asset->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="checkbox-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$asset->name}}</label>
                                     </div>
                                     <x-jet-input-error for="lost_asset.{{$asset->slug}}"></x-jet-input-error>
-                                    
+                                    <div x-data="{ open: true}">
+                                        <div x-show='open'>
+                                            <input type="text" id="lost_asset_{{$asset->slug}}_data" wire:model.lazy="lost_asset.{{$asset->slug}}.data"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('lost_asset.'.$asset->slug.'.data')? 'is-invalid ': ''}}" placeholder="{{$asset->input_tag_title}}"/>
+                                            <x-jet-input-error for="lost_asset.{{$asset->slug}}.data"></x-jet-input-error>
+                                        </div>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

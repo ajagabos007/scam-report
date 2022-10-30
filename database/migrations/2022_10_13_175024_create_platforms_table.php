@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique(); 
             $table->string('slug')->unique();
             $table->longText('description');
-            $table->text('input_tag_title');
+            $table->text('input_tag_title')->nullable();
             $table->timestamps();
         });
     }

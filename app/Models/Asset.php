@@ -29,4 +29,12 @@ class Asset extends Model
     public function states(){
         return $this->hasMany(State::class);
     }
+
+    /**
+     * Get all of the posts that are assigned this tag.
+     */
+    public function reportScams()
+    {
+        return $this->morphedByMany(ReportScam::class, 'assetable');
+    }
 }

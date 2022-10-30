@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('assets', function (Blueprint $table) {
+        Schema::create('platformables', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique(); 
-            $table->string('slug')->unique();
-            $table->longText('description');
-            $table->text('input_tag_title')->nullable();
+            $table->integer('platform_id');
+            $table->integer('platformable_id');
+            $table->string('platformable_type');
+            $table->string('link');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assets');
+        Schema::dropIfExists('platformables');
     }
 };

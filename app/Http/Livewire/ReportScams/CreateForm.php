@@ -21,7 +21,7 @@ class CreateForm extends Component
     public $scammer  = [];
 
     public $reporter = [ ];
-    public $checked_platform = [ ];
+    public $platform = [ ];
     public $lost_asset = [ ];
 
     public $date_of_first_contact;
@@ -50,6 +50,7 @@ class CreateForm extends Component
         $this->genders = Gender::orderBy('name','asc')->get();
         $this->countries = Country::orderBy('name','asc')->get();
         $this->assets = Asset::orderBy('name','asc')->get();
+        $this->reporter['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
     }
     public function render()
     {
@@ -106,17 +107,18 @@ class CreateForm extends Component
     }
 
     public function validateScamInfo(){
-        $checked_platform_rule = [];
-        foreach ($this->checked_platform as $key=>$value) {
-            $checked_platform_rule =  array_merge($checked_platform_rule,[
-            'checked_platform.'.$key.'.accepted' =>'nullable|bool',
-            'checked_platform.'.$key.'.link' =>  Rule::requiredIf($this->checked_platform[$key]['accepted']),
+        $platform_rule = [];
+        foreach ($this->platform as $key=>$value) {
+            $platform_rule =  array_merge($platform_rule,[
+            'platform.'.$key.'.checked' =>'nullable|bool',
+            'platform.'.$key.'.link' =>  Rule::requiredIf($this->platform[$key]['checked']),
            ]);
         }
 
         $validatedData = $this->validate(
             array_merge([
                 'scam.type_id' => 'required|integer',
+                'scam.is_in_progress' => 'nullable|bool',
                 'scammer.name' => 'required|string',
                 'scammer.gender_id' => 'required|integer',
                 'scammer.phone_number' => 'required|string|min:10|max:18',
@@ -125,7 +127,7 @@ class CreateForm extends Component
                 'scammer.state_id' => 'nullable|string',
                 'scammer.address' => 'nullable|string|min:3|max:255',
                 'date_of_first_contact'=>'required|date',
-            ],$checked_platform_rule),
+            ],$platform_rule),
             [
                 'scam.type_id.required' => 'The scam type required',
                 'scam.type_id.integer' => 'The scam type is not valid. Select from the option available',

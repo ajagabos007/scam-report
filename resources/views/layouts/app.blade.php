@@ -39,7 +39,7 @@
 
 <body class="body-wrapper">    
     
-    <!-- <div id="preloader" class="preloader">
+    <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
             </div>
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- welcome content start from here -->
 

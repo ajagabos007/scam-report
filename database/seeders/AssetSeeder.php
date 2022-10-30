@@ -26,16 +26,25 @@ class AssetSeeder extends Seeder
         ->state( new sequence (
             [
                 'name' => "Banking Details", 
-                'description' => 'This include your personal bank detaIls'
+                'description' => 'This include your personal bank detaIls',
+                'input_tag_title' => 'bvn, atm card, hard token etc'
+
             ],
-            ['name' => "Commercial information",
-             'description' => 'This involves a person profile'
+            [
+                'name' => "Commercial information",
+                'description' => 'This involves a person profile',
+                'input_tag_title' => 'CAC cert, license etc',
+
             ],
             ['name' => " Financial",
-             'description' => 'This is physical or electronic money '
+             'description' => 'This is physical or electronic money ',
+             'input_tag_title' => '(#) amount lost',
+
             ],
             ['name' => "Personal Information",
-             'description' => 'These are informations such as credit card number, National ID Card, etc.'
+             'description' => 'These are informations such as credit card number, National ID Card, etc.',
+             'input_tag_title' => 'phone number, date of birth ect.'
+
             ]
         ))
         ->create();

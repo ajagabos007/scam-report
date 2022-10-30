@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             TacticSeeder::class,
             GenderSeeder::class,
             CountrySeeder::class,
+            StateSeeder::class,
         ]);
     }
 }
