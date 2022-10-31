@@ -19,9 +19,9 @@
                             <small class="text-sm italic text-slate-300 ">The reporter information </small>
                         </div>
                     </div>
-                    <div class="timeline-step">
+                    <div class="timeline-step  {{ $preview_progress? 'active': ''}} ">
                         <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
-                            <div class="inner-circle "></div>
+                            <div class="inner-circle {{ $preview_progress? 'active': ''}}"></div>
                             <p class="h6 mt-3 mb-1">PREVIEW</p>
                             <small class="text-sm italic text-slate-300 ">Preview and submit </small>
                         </div>
@@ -33,7 +33,7 @@
     <!-- report scam form -->
     <div class="container rounded shadow p-4 shadow-blue-400 bg-slate-400">
         
-        <form wire:submit.prevent='submit' x-data="{open_scam_info_form: @entangle('show_scam_info_form'), open_reporter_info_form: @entangle('show_reporter_info_form') }">
+        <form wire:submit.prevent='submit' x-data="{open_scam_info_form: @entangle('show_scam_info_form'), open_reporter_info_form: @entangle('show_reporter_info_form'), open_preview: @entangle('show_preview') }">
             <!-- Scammer Information -->
             <div id="scam_information" x-show="open_scam_info_form">
                      
@@ -125,7 +125,6 @@
                             <x-jet-input-error for="scammer.state_id"></x-jet-input-error>
                         </div>
                     </div>
-                    
                     <div class="mb-2">
                         <label for="scammer_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Address</label>
                         <input type="text" id="scammer_address" wire:model.lazy='scammer.address' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.address')? 'is-invalid ': ''}}" placeholder="scammer address"/>
@@ -147,15 +146,15 @@
                             @foreach($platforms as $platform)
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="flex items-center">
-                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="platform.{{$platform->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="checkbox-2" type="checkbox" wire:model="scam.platform.{{$platform->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="checkbox-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$platform->name}}</label>
                                     </div>
-                                    <x-jet-input-error for="platform.{{$platform->slug}}.checked"></x-jet-input-error>
+                                    <x-jet-input-error for="scam.platform.{{$platform->slug}}.checked"></x-jet-input-error>
                                     
                                     <div>
                                         <div >
-                                            <input type="text" id="scammer_platform_{{$platform->slug}}_link" wire:model.lazy="platform.{{$platform->slug}}.link"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('platform.'.$platform->slug.'.link')? 'is-invalid ': ''}}" placeholder="{{$platform->input_tag_title}}"/>
-                                            <x-jet-input-error for="platform.{{$platform->slug}}.link"></x-jet-input-error>
+                                            <input type="text" id="scammer_platform_{{$platform->slug}}_link" wire:model.lazy="scam.platform.{{$platform->slug}}.link"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scam.platform.'.$platform->slug.'.link')? 'is-invalid ': ''}}" placeholder="{{$platform->input_tag_title}}"/>
+                                            <x-jet-input-error for="scam.platform.{{$platform->slug}}.link"></x-jet-input-error>
                                         </div>
                                     </div>
 
@@ -166,7 +165,7 @@
                     
                     <div>
                         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Scam message received</label>
-                        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="The message/chat/description of the scam"></textarea>
+                        <textarea id="message" wire:model.lazy="scam.message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="The message/chat/description of the scam"></textarea>
                     </div>
 
                 </div>
@@ -243,12 +242,13 @@
                             </select>
                             <x-jet-input-error for="reporter.state_id"></x-jet-input-error>
                         </div>
+                        
                     </div>
                     
                     <div class="mb-2">
-                        <label for="scammer_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Address</label>
-                        <input type="text" id="scammer_address" wire:model.lazy='scammer.address' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.address')? 'is-invalid ': ''}}" placeholder="scammer address"/>
-                        <x-jet-input-error for="scammer.address"></x-jet-input-error>
+                        <label for="reporter_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Address</label>
+                        <input type="text" id="reporter_address" wire:model.lazy='reporter.address' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.address')? 'is-invalid ': ''}}" placeholder="reporter address"/>
+                        <x-jet-input-error for="reporter.address"></x-jet-input-error>
                     </div>
                 </div>
                 <!-- Reporter first contact/means and method -->
@@ -262,14 +262,14 @@
                             @foreach($assets as $asset)
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="flex items-center">
-                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="lost_asset.{{$asset->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        <input id="checkbox-2" type="checkbox" wire:model.lazy="reporter.lost_asset.{{$asset->slug}}.checked" class="w-4 h-4 text-blue-600 bg-gray-300 rounded border-gray-500 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="checkbox-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{$asset->name}}</label>
                                     </div>
-                                    <x-jet-input-error for="lost_asset.{{$asset->slug}}"></x-jet-input-error>
+                                    <x-jet-input-error for="reporter.lost_asset.{{$asset->slug}}"></x-jet-input-error>
                                     <div >
                                         <div >
-                                            <input type="text" id="lost_asset_{{$asset->slug}}_data" wire:model.lazy="lost_asset.{{$asset->slug}}.data"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('lost_asset.'.$asset->slug.'.data')? 'is-invalid ': ''}}" placeholder="{{$asset->input_tag_title}}"/>
-                                            <x-jet-input-error for="lost_asset.{{$asset->slug}}.data"></x-jet-input-error>
+                                            <input type="text" id="lost_asset_{{$asset->slug}}_data" wire:model.lazy="reporter.lost_asset.{{$asset->slug}}.data"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.lost_asset.'.$asset->slug.'.data')? 'is-invalid ': ''}}" placeholder="{{$asset->input_tag_title}}"/>
+                                            <x-jet-input-error for="reporter.lost_asset.{{$asset->slug}}.data"></x-jet-input-error>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +279,7 @@
                 </div>
                 <!-- Reporter means, -->
             </div>
-            <div class="preview_information">
+            <div class="preview_information" x-show="open_preview">
                 <div class="mb-2 w-full bg-slate-800  text-white ">
                     <h5 class="text-center">SCAM REPORT FORM PREVIEW</h5>
                 </div>
@@ -309,49 +309,133 @@
                         <h5 class="bg-slate-500 text-sm text-white  text-end px-2">Scammer Information</h5>
                     </div>
                     <div class="mb-6 shadow px-2 pb-2 bg-slate-200">
-                    <div class="row">
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Name: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-300">{{($scammer['name'])?? "" }}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Gender: </label>
-                            @php 
-                                $scammer_gender = $genders->where('id', $scammer['gender_id'] ?? NULL)->first() ? $genders->where('id', $scammer['gender_id'])->first()->name : ''; 
-                            @endphp
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_gender}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Phone Number: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['phone_number'] ?? ''}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >E-mail: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['email'] ?? ''}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Country: </label>
-                            @php 
-                                $scammer_country = $countries->where('id', $scammer['country_id'] ?? NULL)->first() ? $countries->where('id', $scammer['country_id'])->first()->name : ''; 
-                            @endphp
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_country}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >State: </label>
-                            @php 
-                                $scammer_state= $states->where('id', $scammer['state_id'] ?? NULL)->first() ? $states->where('id', $scammer['state_id'])->first()->name : ''; 
-                            @endphp
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_state}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Address: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['address'] ?? ''}}</span>
-                        </div>
-                        <div class="mb-2 w-full col-lg-4 col-md-6">
-                            <label class="text-sm" >Date of first contact with victim: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $date_of_first_contact }}</span>
+                        <div class="row">
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Name: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-300">{{($scammer['name'])?? "" }}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Gender: </label>
+                                @php 
+                                    $scammer_gender = $genders->where('id', $scammer['gender_id'] ?? NULL)->first() ? $genders->where('id', $scammer['gender_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_gender}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Phone Number: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['phone_number'] ?? ''}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >E-mail: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['email'] ?? ''}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Country: </label>
+                                @php 
+                                    $scammer_country = $countries->where('id', $scammer['country_id'] ?? NULL)->first() ? $countries->where('id', $scammer['country_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_country}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >State: </label>
+                                @php 
+                                    $scammer_state= $states->where('id', $scammer['state_id'] ?? NULL)->first() ? $states->where('id', $scammer['state_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$scammer_state}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Address: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $scammer['address'] ?? ''}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Date of first contact with victim: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $date_of_first_contact }}</span>
+                            </div>
+                            <div class="mb-2 w-full col-12">
+                                <label class="text-sm" >Platforms </label>
+                                <div>
+                                @isset($scam['platform'])
+                                    @foreach($scam['platform'] as $key=>$value) 
+                                        <span class="m-1 p-1 shadow">
+                                            <label class="text-sm" >{{$key?? '' }}: </label>
+                                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $value['link']?? "" }}</span>
+                                        </span>
+                                    @endforeach
+                                @endisset
+                                </div>
+                            </div>
+
+                            <div class="mb-2 w-full col-12">
+                                <label class="text-sm" >Scam Message Received: </label>
+                                <p class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400 text-truncate">{{ $scam['message']?? "" }}</p>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+                <div class="mb-6 shadow px-2 pb-2 bg-slate-200">
+                    <div class="mb-2 w-fit">
+                        <h5 class="bg-slate-500 text-sm text-white  text-end px-2">Reporter Information</h5>
+                    </div>
+                    <div class="mb-6 shadow px-2 pb-2 bg-slate-200">
+                        <div class="row">
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Name: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-300">{{($reporter['name'])?? "" }}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Gender: </label>
+                                @php 
+                                    $reporter_gender = $genders->where('id', $reporter['gender_id'] ?? NULL)->first() ? $genders->where('id', $reporter['gender_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$reporter_gender}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Age: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-300">{{($reporter['age'])?? "" }}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Phone Number: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $reporter['phone_number'] ?? ''}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >E-mail: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $reporter['email'] ?? ''}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Country: </label>
+                                @php 
+                                    $reporter_country = $countries->where('id', $reporter['country_id'] ?? NULL)->first() ? $countries->where('id', $reporter['country_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$reporter_country}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >State: </label>
+                                @php 
+                                    $reporter_state= $states->where('id', $reporter['state_id'] ?? NULL)->first() ? $states->where('id', $reporter['state_id'])->first()->name : ''; 
+                                @endphp
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{$reporter_state}}</span>
+                            </div>
+                            <div class="mb-2 w-full col-lg-4 col-md-6">
+                                <label class="text-sm" >Address: </label>
+                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $reporter['address'] ?? ''}}</span>
+                            </div>
+                           
+                            <div class="mb-2 w-full col-12">
+                                <label class="text-sm" >Asset Lost </label>
+                                <div>
+                                    @isset($reporter['lost_asset'])
+                                        @foreach($reporter['lost_asset'] as $key=>$value) 
+                                            <span class="m-1 p-1 shadow">
+                                                <label class="text-sm" >{{$key?? '' }}: </label>
+                                                <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $value['data']?? "" }}</span>
+                                            </span>
+                                        @endforeach
+                                    @endisset
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
@@ -359,11 +443,12 @@
             </div>
            
             <div x-data="{open_back_button: @entangle('show_back_button'), open_next_button: @entangle('show_next_button'), open_submit_button: @entangle('show_submit_button')}">
-                <button wire:click="back" x-show="open_back_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <button wire:click.prevent="back" x-show="open_back_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                      <div wire:loading wire:target="back" class="spinner-border spinner-border-sm" role="status"></div>
                      Back
                 </button>
-                <button  wire:click="next" x-show="open_next_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                
+                <button  wire:click.prevent="next" x-show="open_next_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <div wire:loading wire:target="next" class="spinner-border spinner-border-sm" role="status"></div>
                     Next
                 </button>

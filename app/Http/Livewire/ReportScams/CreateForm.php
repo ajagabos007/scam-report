@@ -19,14 +19,17 @@ use Illuminate\Validation\Validator;
 
 class CreateForm extends Component
 {
-    public $scam = [];
-    public $scammer  = [];
+    public $scam = [
+        'platform' => []
+    ];
+    public $scammer  = [ ];
     public $scammer_states  = [];
 
 
-    public $reporter = [ ];
-    public $platform = [ ];
-    public $reporter_states  = [];
+    public $reporter = [
+        'lost_asset' => []
+     ];
+    public $reporter_states  = [ ];
     public $lost_asset = [ ];
 
     public $date_of_first_contact;
@@ -45,9 +48,13 @@ class CreateForm extends Component
     public $show_reporter_info_form = false;
     public $reporter_info_form_progress = false;
 
+
+ 
+    public $show_preview = false;
+    public $preview_progress = false;
+
     public $show_next_button = true;
     public $show_back_button = false;
-    public $show_preview = true;
     public $show_submit_button = false;
 
     public $error_message = null;
@@ -62,7 +69,6 @@ class CreateForm extends Component
         $this->reporter['user_agent'] = $_SERVER['HTTP_USER_AGENT']?? null;
         $this->reporter['ip_address'] = $_SERVER['REMOTE_ADDR']?? null;
 
-        // dd($this->scam_types->where('id', null)->first());
     }
     
     public function render()
@@ -71,11 +77,15 @@ class CreateForm extends Component
     }
     public function updatedScammerCountryId($value){
         $this->scammer_states = State::where('country_id','=',$value)->orderBy('name','asc')->get();
-        $this->reporter_states  = State::where('country_id','=',$value)->orderBy('name','asc')->get();
+    }
+    public function updatedReporterCountryId($value){
+        $this->reporter_states = State::where('country_id','=',$value)->orderBy('name','asc')->get();
     }
     public function submit(){
-
-        // $this->validateReporterInfo();
+        $this->validateFormData();
+        $this->resetValidation();
+        $report_scam = new ReportScam();
+        dd('submitted successfully');
 
     }
     public function validateFormData(){
@@ -95,11 +105,12 @@ class CreateForm extends Component
             $this->show_back_button = true;
             $this->show_next_button = true;
         }
-        elseif($this->show_reporter_info_form ){
+        elseif($this->show_reporter_info_form){
             $this->show_scam_info_form = false;
             $this->show_reporter_info_form = false;
             $this->preview_progress = true;
             $this->show_preview = true;
+            $this->show_submit_button = true;
             $this->show_next_button = false;
         }
         
@@ -115,54 +126,21 @@ class CreateForm extends Component
         if($this->show_preview){
             $this->show_preview = false;
             $this->preview_progress = false;
-            $this->show_scam_info_form = true;
+            $this->show_submit_button = false;
+            $this->show_next_button = true;
+            $this->show_reporter_info_form = true;
+            $this->reporter_info_form_progress = true;
         }
-        $this->show_scam_info_form = true;
     }
 
     public function validateScamInfo(){
         $platform_rule = [];
-        foreach ($this->platform as $key=>$value) {
+        foreach ($this->scam['platform'] as $key=>$value) {
             $platform_rule =  array_merge($platform_rule,[
-            'platform.'.$key.'.checked' =>'nullable|bool',
-            'platform.'.$key.'.link' =>  Rule::requiredIf($this->platform[$key]['checked']),
+            'scam.platform.'.$key.'.checked' =>'nullable|bool',
+            'scam.platform.'.$key.'.link' =>  Rule::requiredIf($this->scam['platform'][$key]['checked']),
            ]);
         }
-        // $this->withValidator(function (Validator $validator) {
-
-        //     $validator->after(function ($validator) {
-               
-        //         if ($validator->errors()->count()) {
-        //             $this->error_message = $this->summarize($validator->errors()->all());
-        //         }
-
-        //     });
-
-        // })->validate(
-        //     array_merge([
-        //         'scam.type_id' => 'required|integer',
-        //         'scam.is_in_progress' => 'required|bool',
-        //         'scammer.name' => 'required|string',
-        //         'scammer.gender_id' => 'required|integer',
-        //         'scammer.phone_number' => 'required|string|min:10|max:18',
-        //         'scammer.email' => 'required|email',
-        //         'scammer.country_id' => 'nullable|integer',
-        //         'scammer.state_id' => 'nullable|string',
-        //         'scammer.address' => 'nullable|string|min:3|max:255',
-        //         'date_of_first_contact'=>'required|date',
-        //     ],$platform_rule),
-        //     [
-        //         'scam.type_id.required' => 'The scam type is required',
-        //         'scam.type_id.integer' => 'The scam type is not valid. Select from the option available',
-        //         'scammer.gender_id.required' => 'The scammer gender is required',
-        //         'scammer.gender_id.integer' => 'The scammer gender is not valid. Select from the option available', 
-        //         'scammer.country_id.required' => 'The scammer country is required',
-        //         'scammer.country_id.integer' => 'The scammer country is not valid. Select from the option available',
-        //         'scammer.state_id.required' => 'The scammer state is required',
-        //         'scammer.state_id.integer' => 'The scammer state is not valid. Select from the option available',
-        //     ],
-        // );
-
         $validatedData = $this->validate(
             array_merge([
                 'scam.type_id' => 'required|integer',
@@ -175,6 +153,8 @@ class CreateForm extends Component
                 'scammer.state_id' => 'nullable|string',
                 'scammer.address' => 'nullable|string|min:3|max:255',
                 'date_of_first_contact'=>'required|date',
+                'scam.message' => 'nullable|string|min:3|max:1000',
+
             ],$platform_rule),
             [
                 'scam.type_id.required' => 'The scam type is required',
@@ -190,14 +170,12 @@ class CreateForm extends Component
     }
 
     public function validateReporterInfo() {
-        // $this->show_scam_info_form = false;
-        // $this->show_reporter_info_form = true;
-        // $this->reporter_info_form_progress = true;
+        
         $lost_asset_rule = [];
-        foreach ($this->assets as $key=>$value) {
+        foreach ($this->reporter['lost_asset'] as $key=>$value) {
             $lost_asset_rule =  array_merge($lost_asset_rule,[
-            'lost_asset.'.$key.'.checked' =>'nullable|bool',
-            // 'lost_asset.'.$key.'.data' =>  Rule::requiredIf($this->platform[$key]['checked']),
+            'reporter.lost_asset.'.$key.'.checked' =>'nullable|bool',
+            'reporter.lost_asset.'.$key.'.data' =>  Rule::requiredIf($this->reporter['lost_asset'][$key]['checked']),
            ]);
         }
         $validatedData = $this->validate(
@@ -244,6 +222,5 @@ class CreateForm extends Component
 
         return $message;
     }
-
 
 }
