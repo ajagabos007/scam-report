@@ -40,24 +40,11 @@
             <div class="spinner">                
             </div>
                 <div class="txt-loading">
-                    <span data-text-preloader="T" class="letters-loading">
-                        T
-                    </span>
-                    <span data-text-preloader="E" class="letters-loading">
-                        E
-                    </span>
-                    <span data-text-preloader="C" class="letters-loading">
-                        C
-                    </span>
-                    <span data-text-preloader="H" class="letters-loading">
-                        H
-                    </span>
-                    <span data-text-preloader="E" class="letters-loading">
-                        E
-                    </span>
-                    <span data-text-preloader="X" class="letters-loading">
-                        X
-                    </span>
+                    @foreach(str_split(strtoupper(config('app.name'))) as $char)
+                        <span data-text-preloader="{{$char}}" class="letters-loading">
+                            {{$char}}
+                        </span>
+                   @endforeach 
                 </div>
             <p class="text-center">Loading</p>
         </div>

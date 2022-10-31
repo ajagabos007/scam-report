@@ -40,7 +40,7 @@
 </head>
 
 <body class="body-wrapper">    
-    @if(0)
+    
     <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    @endif
+    
 
     <!-- welcome content start from here -->
 
