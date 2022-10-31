@@ -349,9 +349,8 @@
                         </div>
                         <div class="mb-2 w-full col-lg-4 col-md-6">
                             <label class="text-sm" >Date of first contact with victim: </label>
-                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $date_of_first_contact}}</span>
+                            <span class="ml-1 text-sm font-medium text-gray-900 dark:text-gray-400">{{ $date_of_first_contact }}</span>
                         </div>
-                    
                     </div>
                     </div>
 
