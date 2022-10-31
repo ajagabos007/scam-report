@@ -7,6 +7,8 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/css/toastr.css',
+                'resources/js/toastr.js'
             ],
             refresh: [
                 ...refreshPaths,

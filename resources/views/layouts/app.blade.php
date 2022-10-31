@@ -33,35 +33,24 @@
     <!-- template main style css file -->
     <link rel="stylesheet" href="{{asset('theme/style.css')}}">
     <link rel="stylesheet" href="{{asset('theme/progress_timeline.css')}}">
+    @vite(['resources/css/toastr.css', 'resources/js/toastr.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @livewireStyles
     
 </head>
 
 <body class="body-wrapper">    
-    
+    @if(0)
     <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
             </div>
                 <div class="txt-loading">
-                    <span data-text-preloader="T" class="letters-loading">
-                        T
-                    </span>
-                    <span data-text-preloader="E" class="letters-loading">
-                        E
-                    </span>
-                    <span data-text-preloader="C" class="letters-loading">
-                        C
-                    </span>
-                    <span data-text-preloader="H" class="letters-loading">
-                        H
-                    </span>
-                    <span data-text-preloader="E" class="letters-loading">
-                        E
-                    </span>
-                    <span data-text-preloader="X" class="letters-loading">
-                        X
-                    </span>
+                   @foreach(str_split(strtoupper(config('app.name'))) as $char)
+                        <span data-text-preloader="{{$char}}" class="letters-loading">
+                            {{$char}}
+                        </span>
+                   @endforeach                    
                 </div>
             <p class="text-center">Loading</p>
         </div>
@@ -82,6 +71,7 @@
             </div>
         </div>
     </div>
+    @endif
 
     <!-- welcome content start from here -->
 
@@ -344,6 +334,48 @@
     <script src="{{asset('theme/assets/js/timeline.min.js')}}"></script>
     <script src="{{asset('theme/assets/js/ajax-mail.js')}}"></script>
     <script src="{{asset('theme/assets/js/active.js')}}"></script>
+      <!-- https://github.com/CodeSeven/toastr -->
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script type="text/javascript">
+           $(document).ready(function(){
+               toastr.options = {
+                   "closeButton": true,
+                   "debug": false,
+                   "newestOnTop": true,
+                   "progressBar": true,
+                   "positionClass": "toast-top-right",
+                   "preventDuplicates": true,
+                   "onclick": null,
+                   "showDuration": "50000",
+                   "hideDuration": "1000",
+                   "timeOut": "5000",
+                   "extendedTimeOut": "1000",
+                   "showMethod": "slideDown",
+                   "hideMethod": "slideUp",
+                   "closeMethod": "slideUp"
+               }
+
+               window.addEventListener('success', event => {
+                   toastr.success(event.detail.message?event.detail.message:"success");
+               });
+
+               window.addEventListener('error', event => {
+                   toastr.error(event.detail.message?event.detail.message:"error");
+               });
+
+               window.addEventListener('info', event => {
+                   toastr.info(event.detail.message?event.detail.message:"info");
+               });
+
+               window.addEventListener('warning', event => {
+                   toastr.warning(event.detail.message?event.detail.message:"warning");
+               });                   
+
+            //    $('#summernote').summernote();
+           }); 
+           
+       </script>
 </body>
 
 </html>

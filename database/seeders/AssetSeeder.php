@@ -36,9 +36,10 @@ class AssetSeeder extends Seeder
                 'input_tag_title' => 'CAC cert, license etc',
 
             ],
-            ['name' => " Financial",
-             'description' => 'This is physical or electronic money ',
-             'input_tag_title' => '(#) amount lost',
+            [
+                'name' => " Financial",
+                'description' => 'This is physical or electronic money ',
+                'input_tag_title' => '(#) amount lost',
 
             ],
             ['name' => "Personal Information",

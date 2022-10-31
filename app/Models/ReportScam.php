@@ -10,6 +10,15 @@ class ReportScam extends Model
     use HasFactory;
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_in_progress' => false,
+    ];
+
+    /**
      * Get all of the lost asset for the reported scam.
      */
     public function lostAssets()
