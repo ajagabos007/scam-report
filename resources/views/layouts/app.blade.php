@@ -41,7 +41,7 @@
 
 <body class="body-wrapper">    
     
-    <div id="preloader" class="preloader">
+    <!-- <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
             </div>
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     
 
     <!-- welcome content start from here -->
@@ -141,7 +141,7 @@
                                         <li><a href="index-5.html">scam 5</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="about.html">About</a> </li>
+                                <li><a href="{{route ('about')}}">About</a> </li>
                                 <li><a href="services.html">Services</a></li>
                                 <li><a href="cases-grid.html">Case Study</a></li>
                                 <li><a href="news.html">News</a></li>
@@ -174,7 +174,7 @@
                                                     <li><a href="index-5.html">Homepage 5</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="about.html">about</a></li>
+                                            <li><a href="{{route ('about')}}">about</a></li>
                                             <li><a href="services.html">services</a></li>
                                             <li>
                                                 <a class="has-arrow" href="#">Pages</a>
@@ -254,8 +254,8 @@
                                 <h4>Company</h4>
                             </div>
                             <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="about.html">Company History</a></li>
+                                <li><a href="{{route ('about')}}">About Us</a></li>
+                                <li><a href="{{route ('about')}}">Company History</a></li>
                                 <li><a href="contact.html">Need a Career</a></li>
                                 <li><a href="project-details.html">Working Process</a></li>
                                 <li><a href="news.html">Blog Post</a></li>
@@ -268,8 +268,8 @@
                                 <h4>Company</h4>
                             </div>
                             <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="about.html">Company History</a></li>
+                                <li><a href="{{route ('about')}}">About Us</a></li>
+                                <li><a href="{{route ('about')}}">Company History</a></li>
                                 <li><a href="contact.html">Need a Career</a></li>
                                 <li><a href="project-details.html">Working Process</a></li>
                                 <li><a href="news.html">Blog Post</a></li>

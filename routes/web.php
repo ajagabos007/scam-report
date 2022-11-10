@@ -30,6 +30,10 @@ Route::middleware([
 Route::resource('report-scams', ReportScamController::class);
 
 
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
 Route::fallback(function () {
     return view('404');
 });
