@@ -25,4 +25,12 @@ class Platform extends Model
             ]
         ];
     }
+
+    /**
+     * Get all of the flights that are assigned this tag.
+     */
+    public function reportScams()
+    {
+        return $this->morphedByMany(ReportScams::class, 'platformable');
+    }
 }

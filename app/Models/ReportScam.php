@@ -21,17 +21,26 @@ class ReportScam extends Model
     /**
      * Get all of the lost asset for the reported scam.
      */
+    public function type()
+    {
+        return $this->belongsTo(ScamType::class, 'scam_type_id');
+    }
+
+    /**
+     * Get all of the lost asset for the reported scam.
+     */
     public function lostAssets()
     {
-        return $this->morphToMany(Asset::class, 'assetable');
+        return $this->morphToMany(Asset::class, 'assetable')->withPivot('data');
     }
+
 
 
     /**
      * Get all of the platforms used for the reported scam.
      */
-    public function usePlatform()
+    public function platforms()
     {
-        return $this->morphToMany(Platform::class, 'platformable');
+        return $this->morphToMany(Platform::class, 'platformable')->withPivot('link');
     }
 }

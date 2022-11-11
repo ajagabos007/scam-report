@@ -18,6 +18,16 @@ class PlatformSeeder extends Seeder
     {
         Platform::factory()->count(4)
         ->state( new sequence (
+            ['name' => "SMS",
+             'description' => 'Scammer phone number',
+             'input_tag_title' => 'phone number'
+            ],
+
+            ['name' => "E-mail",
+             'description' => 'Scammer email address',
+             'input_tag_title' => 'email address'
+            ],
+
             ['name' => " Website",
              'description' => 'Scammer website',
              'input_tag_title' => 'website url/name'

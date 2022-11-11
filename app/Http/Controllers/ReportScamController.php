@@ -15,7 +15,7 @@ class ReportScamController extends Controller
      */
     public function index()
     {
-        $report_scams = ReportScam::all();
+        $report_scams = ReportScam::orderBy('created_at', 'desc')->get();
         return view('report_scams.index', ['report_scams'=>$report_scams]);
     }
 
@@ -37,7 +37,7 @@ class ReportScamController extends Controller
      */
     public function store(StoreReportScamRequest $request)
     {
-        //
+        
     }
 
     /**
@@ -48,7 +48,7 @@ class ReportScamController extends Controller
      */
     public function show(ReportScam $reportScam)
     {
-        //
+        return view('report_scams.show', ['report_scam' => $reportScam]);
     }
 
     /**

@@ -45,17 +45,17 @@ class CreateForm extends Component
     public $show_scam_info_form = true;
     public $scam_info_form_progress = true;
 
-    public $show_reporter_info_form = false;
-    public $reporter_info_form_progress = false;
+    public $show_reporter_info_form = false; //false;
+    public $reporter_info_form_progress = false; //false;
 
 
  
-    public $show_preview = false;
-    public $preview_progress = false;
+    public $show_preview = false; //false;
+    public $preview_progress = false; //false;
 
     public $show_next_button = true;
-    public $show_back_button = false;
-    public $show_submit_button = false;
+    public $show_back_button = false; //false;
+    public $show_submit_button = false; //false;
 
     public $error_message = null;
 
@@ -84,9 +84,63 @@ class CreateForm extends Component
     public function submit(){
         $this->validateFormData();
         $this->resetValidation();
-        $report_scam = new ReportScam();
-        dd('submitted successfully');
 
+        $report_scam = new ReportScam();
+        $report_scam->scam_type_id = $this->scam['type_id'];
+        $report_scam->is_in_progress = $this->scam['is_in_progress'];
+        $report_scam->scammer_name = $this->scammer['name'];
+        $report_scam->scammer_gender_id = $this->scammer['gender_id'];
+        $report_scam->scammer_phone_number = $this->scammer['phone_number'];
+        $report_scam->scammer_email = $this->scammer['email'];
+        $report_scam->scammer_country_id = $this->scammer['country_id']?? null;
+
+        $report_scam->scammer_state_id = $this->scammer['state_id'] ?? null;
+        $report_scam->scammer_address = $this->scammer['address'];
+        $report_scam->date_of_first_contact = $this->date_of_first_contact;
+        $report_scam->scam_message = $this->scam['message'];
+
+        $report_scam->reporter_name = $this->reporter['name'];
+        $report_scam->reporter_gender_id = $this->reporter['gender_id'];
+
+        $report_scam->reporter_phone_number = $this->reporter['phone_number'];
+        $report_scam->reporter_email = $this->reporter['email'];
+        $report_scam->reporter_country_id = $this->reporter['country_id'] ?? null;
+        $report_scam->reporter_state_id = $this->reporter['state_id'] ?? null;
+        $report_scam->reporter_address = $this->reporter['address'];
+        $report_scam->reporter_age = $this->reporter['age'];
+
+        $report_scam->reporter_user_agent= $this->reporter['user_agent'];
+        $report_scam->reporter_ip_address = $this->reporter['ip_address'];
+        $report_scam->save();
+
+        Platform::all()->each(function ($platform) use(&$report_scam){
+           foreach($this->scam['platform'] as $key=>$value){
+                if(strtolower($platform->slug) === strtolower($key) && $value['checked']){
+                    $report_scam->platforms()->attach(
+                        $platform,
+                        ['link'=> $value['link']]
+                    );
+                }
+           }
+           
+        });
+
+
+        Asset::all()->each(function ($asset) use(&$report_scam){
+            foreach($this->reporter['lost_asset'] as $key=>$value){
+                 if(strtolower($asset->slug) === strtolower($key) && $value['checked']){
+                     $report_scam->lostAssets()->attach( 
+                        $asset,
+                        ['data' => $value['data']]
+                     );
+                 }
+            }
+            
+        });
+
+        
+        return redirect()->route('report-scams.show', $report_scam)
+        ->with(['success'=>'Scam case reported successfully']);
     }
     public function validateFormData(){
         if($this->show_scam_info_form )
@@ -97,7 +151,7 @@ class CreateForm extends Component
     public function next(){
         $this->validateFormData();
         if($this->show_scam_info_form){
-            $this->show_scam_info_form = false;
+            $this->show_scam_info_form = false; //false;
             $this->show_reporter_info_form = true;
 
             $this->reporter_info_form_progress = true;
@@ -114,7 +168,6 @@ class CreateForm extends Component
             $this->show_next_button = false;
         }
         
-
     }
     public function back(){
         if($this->show_reporter_info_form){
@@ -167,7 +220,10 @@ class CreateForm extends Component
                 'scammer.state_id.integer' => 'The scammer state is not valid. Select from the option available',
             ],
         );
+
+        $this->dispatchBrowserEvent('success', ['message' => "scam information good!"]);
     }
+
 
     public function validateReporterInfo() {
         

@@ -206,7 +206,7 @@
         </div>
     </header> 
     <section class="page-banner-wrap bg-cover" style="background-image: url('assets/img/page-banner.jpg')">
-        <div class="banner-text">techex</div>
+        <div class="banner-text">{{config('app.name')}}</div>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12 col-12">
@@ -227,6 +227,26 @@
         </div>
     </section>   
     <main>
+        @if ($errors->any())
+            <div class="bg-red-300 text-red-700 p-2">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif  
+        @if (session('error'))
+            <div class="bg-red-200 text-red-700 p-2 font-bold mb-2 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="bg-green-200 text-green-700 p-2 font-bold mb-2 rounded">
+                {{ session('success') }}
+            </div>
+        @endif
         {{ $slot }}    
     </main>
 

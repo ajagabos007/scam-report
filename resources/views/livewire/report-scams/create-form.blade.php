@@ -31,7 +31,7 @@
         </div>
     </div>
     <!-- report scam form -->
-    <div class="container rounded shadow p-4 shadow-blue-400 bg-slate-400">
+    <div class="container rounded shadow p-4 shadow-blue-400 bg-slate-100">
         
         <form wire:submit.prevent='submit' x-data="{open_scam_info_form: @entangle('show_scam_info_form'), open_reporter_info_form: @entangle('show_reporter_info_form'), open_preview: @entangle('show_preview') }">
             <!-- Scammer Information -->
@@ -55,7 +55,7 @@
                         <div class="mb-2 w-full">
                             <label for="scam_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Scam Type</label>
                             <select id="scam_type" wire:model.lazy='scam.type_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scam.type_id')? 'is-invalid ': ''}}">
-                                <option value="">select scam type</option>
+                                <option value={{null}}>select scam type</option>
                                 @foreach($scam_types as $scam_type)
                                 <option value="{{$scam_type->id}}">{{$scam_type->name}}</option>
                                 @endforeach
@@ -79,7 +79,7 @@
                     <div class="mb-6">
                         <label for="scammer_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Gender</label>
                         <select id="scammer_gender" name="scammer_gender" wire:model.lazy='scammer.gender_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.gender_id')? 'is-invalid ': ''}}">
-                            <option>select gender</option>
+                            <option value={{null}}>select gender</option>
                             @foreach($genders as $gender)
                             <option value="{{$gender->id}}">{{$gender->name}}</option>
                             @endforeach
@@ -107,7 +107,7 @@
                         <div class="mb-2 w-full">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Country</label>
                             <select id="countries" wire:model.lazy='scammer.country_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.country_id')? 'is-invalid ': ''}}">
-                                <option>Select country</option>
+                                <option value={{null}}> Select country</option>
                                 @foreach($countries as $country)
                                     <option value="{{$country->id}}">{{__($country->name)}}</option>
                                 @endforeach
@@ -117,7 +117,7 @@
                         <div class="mb-2 w-full">
                             <label for="states" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">State</label>
                             <select id="states" wire:model.lazy='scammer.state_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('scammer.state_id')? 'is-invalid ': ''}}">
-                                <option>Select state</option>
+                                <option value={{null}}>Select state</option>
                                 @foreach($scammer_states as $state)
                                     <option value="{{$state->id}}">{{__($state->name)}}</option>
                                 @endforeach
@@ -191,7 +191,7 @@
                         <div class="mb-6 w-full">
                             <label for="reporter_gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Gender</label>
                             <select id="reporter_gender" name="reporter_gender" wire:model.lazy='reporter.gender_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.gender_id')? 'is-invalid ': ''}}">
-                                <option>select gender</option>
+                                <option value={{null}}>select gender</option>
                                 @foreach($genders as $gender)
                                 <option value="{{$gender->id}}">{{$gender->name}}</option>
                                 @endforeach
@@ -225,7 +225,7 @@
                         <div class="mb-2 w-full">
                             <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Country</label>
                             <select id="countries" wire:model.lazy='reporter.country_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.country_id')? 'is-invalid ': ''}}">
-                                <option>Select country</option>
+                                <option value={{null}}>Select country</option>
                                 @foreach($countries as $country)
                                     <option value="{{$country->id}}">{{__($country->name)}}</option>
                                 @endforeach
@@ -235,7 +235,7 @@
                         <div class="mb-2 w-full">
                             <label for="states" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">State</label>
                             <select id="states" wire:model.lazy='reporter.state_id' class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {{ $errors->has('reporter.state_id')? 'is-invalid ': ''}}">
-                                <option>Select state</option>
+                                <option value={{null}}>Select state</option>
                                 @foreach($reporter_states as $state)
                                     <option value="{{$state->id}}">{{__($state->name)}}</option>
                                 @endforeach
@@ -452,7 +452,10 @@
                     <div wire:loading wire:target="next" class="spinner-border spinner-border-sm" role="status"></div>
                     Next
                 </button>
-                <button type="submit" x-show="open_submit_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <button type="submit" x-show="open_submit_button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <div wire:loading wire:target="submit" class="spinner-border spinner-border-sm" role="status"></div>
+                    Submit
+                </button>
             </div>
            
         </form>
