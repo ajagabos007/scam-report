@@ -15,7 +15,7 @@ class ReportScamController extends Controller
      */
     public function index()
     {
-        $report_scams = ReportScam::orderBy('created_at', 'desc')->get();
+        $report_scams = ReportScam::orderBy('created_at', 'desc')->paginate(20);
         return view('report_scams.index', ['report_scams'=>$report_scams]);
     }
 

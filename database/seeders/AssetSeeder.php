@@ -16,12 +16,6 @@ class AssetSeeder extends Seeder
      */
     public function run()
     {
-        // Banking details
-        // Commercial information
-        // Financial
-        // Not Applicable
-        // Personal Information
-
         Asset::factory()->count(4)
         ->state( new sequence (
             [

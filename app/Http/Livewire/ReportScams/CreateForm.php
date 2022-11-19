@@ -125,11 +125,10 @@ class CreateForm extends Component
            
         });
 
-
         Asset::all()->each(function ($asset) use(&$report_scam){
             foreach($this->reporter['lost_asset'] as $key=>$value){
                  if(strtolower($asset->slug) === strtolower($key) && $value['checked']){
-                     $report_scam->lostAssets()->attach( 
+                     $report_scam->assets()->attach( 
                         $asset,
                         ['data' => $value['data']]
                      );
@@ -138,7 +137,6 @@ class CreateForm extends Component
             
         });
 
-        
         return redirect()->route('report-scams.show', $report_scam)
         ->with(['success'=>'Scam case reported successfully']);
     }

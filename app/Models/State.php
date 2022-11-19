@@ -11,6 +11,11 @@ class State extends Model
 {
     use HasFactory;
     use Sluggable;
+    
+    public $fillable = [
+        'country_id',
+        'name',
+    ];
 
     /**
      * Return the sluggable configuration array for this model.

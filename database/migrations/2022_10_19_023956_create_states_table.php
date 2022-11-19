@@ -17,9 +17,10 @@ return new class extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Country::class)->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
             $table->timestamps();
+            $table->index(['country_id', 'name']);
         });
     }
 

@@ -113,11 +113,12 @@
                                     @endforeach
                                 </ul>
                             </div>
+                            <p><label class="text-bold text-black">Scam Message Recieved</label>: <span class="text-red-400">{{$report_scam->scam_message}}</span></p>
                             
                              <div>
                                 <h3>Asset(s) Lost to the scam</h3>
                                 <ul>
-                                    @foreach($report_scam->lostAssets as $lost_assest)
+                                    @foreach($report_scam->assets as $lost_assest)
                                     <li >{{$lost_assest->name}}: <span class="text-sm text-muted"> {{$lost_assest->pivot->data}} </span> </li>
                                     @endforeach
                                 </ul>

@@ -28,8 +28,12 @@
                     </div>
                 </div>
             </div>
+            <div>
+                {{$report_scams->links()}}
+            </div>
             
             <div class="row grid gap-1">
+
                 @foreach($report_scams as $report_scam)
                 <div class="col-xl-4 col-md-6 grid-item {{$report_scam->type->slug}}">
                     <div class="case-info-card" style="margin-top: 1px;">

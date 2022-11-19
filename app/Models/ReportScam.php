@@ -29,7 +29,7 @@ class ReportScam extends Model
     /**
      * Get all of the lost asset for the reported scam.
      */
-    public function lostAssets()
+    public function assets()
     {
         return $this->morphToMany(Asset::class, 'assetable')->withPivot('data');
     }
