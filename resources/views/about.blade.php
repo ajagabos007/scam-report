@@ -31,7 +31,7 @@
                             <i class="fal fa-users"></i>
                         </div>
                         <div class="content">
-                            <h3>Unified Online Voice</h3>
+                            <h3>A Unified Online Voice</h3>
                             <p>Users now have a collective voice, and can lay their complains and be rest assured it will be heard.</p>
                         </div>
                     </div>
