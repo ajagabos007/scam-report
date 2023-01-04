@@ -31,7 +31,7 @@
         </div>
     </div>
     <!-- report scam form -->
-    <div class="container rounded shadow p-4 shadow-blue-400 bg-slate-100">
+    <div class="container rounded shadow p-4 shadow-blue-400 bg-blue-300">
         
         <form wire:submit.prevent='submit' x-data="{open_scam_info_form: @entangle('show_scam_info_form'), open_reporter_info_form: @entangle('show_reporter_info_form'), open_preview: @entangle('show_preview') }">
             <!-- Scammer Information -->
@@ -178,7 +178,7 @@
                 
                 <!-- Reporter bio -->
 
-                <div class="mb-6 shadow px-2 pb-2 bg-slate-200">
+                <div class="mb-6 shadow px-2 pb-2 ">
                     <div class="mb-2 w-fit">
                         <h5 class="bg-slate-500 text-sm text-white  text-end px-2">Reporter's bio</h5>
                     </div>

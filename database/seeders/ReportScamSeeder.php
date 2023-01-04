@@ -48,30 +48,48 @@ class ReportScamSeeder extends Seeder
      */
     public function run()
     {
-        ReportScam::factory()->count(1000)
-        ->hasAttached(
-            $platform = Platform::all()->random(1)->first(),
-            ['link'=> 
-                $platform->slug=="sms"? fake()->e164PhoneNumber():(
-                $platform->slug=="e-mail"? fake()->safeEmail():(
-                $platform->slug=="website"? fake()->url():(
-                $platform->slug=="facebook"? "https://web.facebook.com/".fake()->userName():  "undisclosable platform"
-                )
-                )
-                )
-            ],
-        )
-        ->hasAttached(
-             $asset = Asset::all()->random(1)->first(),
-             ['data'=> 
-                $asset->slug=="banking-details"? fake()->bankAccountNumber():(
-                $asset->slug=="commercial-information"? fake()->bankAccountNumber():(
-                $asset->slug=="personal-information"? fake()->name().", ".fake()()->e164PhoneNumber():(
-                $asset->slug=="financial"? fake()->randomNumber():  "undisclosable asset lost"
-                )
-                )
-                )
-             ]
-        )->create();
+        for ($i=0; $i < 1000; $i++) { 
+            # code...
+            $report_scams= ReportScam::factory()->count(1)->create();
+            foreach($report_scams as $report_scam){
+
+                // loop through number of platforms used 
+                for ($i=0; $i < fake()->numberBetween(0, Platform::all()->count()) ; $i++) { 
+                    # code...
+                    $platform = Platform::all()->random(1)->first();
+                    $report_scam->platforms()->attach(
+                        $platform->id,
+                        ['link'=> 
+                            $platform->slug=="sms"? fake()->e164PhoneNumber():(
+                            $platform->slug=="e-mail"? fake()->safeEmail():(
+                            $platform->slug=="website"? fake()->url():(
+                            $platform->slug=="facebook"? "https://web.facebook.com/".fake()->userName():  "undisclosable platform"
+                            )
+                            )
+                            )
+                        ],
+                    );
+                }
+
+                // loop through number of asset lost  
+                for ($i=0; $i < fake()->numberBetween(0 , Asset::all()->count()) ; $i++) { 
+                    # code...
+                    $asset = Asset::all()->random(1)->first();
+                    $report_scam->assets()->attach(
+                        $asset->id, 
+                        ['data'=> 
+                            $asset->slug=="banking-details"? fake()->bankAccountNumber():(
+                            $asset->slug=="commercial-information"? fake()->bankAccountNumber():(
+                            $asset->slug=="personal-information"? fake()->name() .", ". fake()->e164PhoneNumber():(
+                            $asset->slug=="financial"? fake()->randomNumber():  "undisclosable asset lost"
+                            )
+                            )
+                            )
+                        ]
+                    );
+                }
+
+            }
+        }
     }
 }

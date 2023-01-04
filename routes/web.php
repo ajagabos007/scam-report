@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportScamController;
+use App\Http\Livewire\ReportScams\ExportToCsv;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,10 +28,8 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
+Route::get('report-scams/export-to-csv', ExportToCsv::class)->name('report-scams.export-to-csv');
 Route::resource('report-scams', ReportScamController::class);
-
-
 Route::get('/about', function () {
     return view('about');
 })->name('about');

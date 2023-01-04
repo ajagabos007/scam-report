@@ -33,6 +33,7 @@
     <!-- template main style css file -->
     <link rel="stylesheet" href="{{asset('theme/style.css')}}">
     <link rel="stylesheet" href="{{asset('theme/progress_timeline.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     @vite(['resources/css/toastr.css', 'resources/js/toastr.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @livewireStyles
@@ -41,7 +42,7 @@
 
 <body class="body-wrapper">    
     
-    <!-- <div id="preloader" class="preloader">
+    <div id="preloader" class="preloader">
         <div class="animation-preloader">
             <div class="spinner">                
             </div>
@@ -70,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     
 
     <!-- welcome content start from here -->
@@ -132,20 +133,15 @@
                             <ul>
                             <li><a href="/">Home</a> </li>
 
-                                <li><a href="#">Scam Types <i class="fas fa-angle-down"></i></a>
+                                <li><a href="#">Scam Report <i class="fas fa-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="index.html">scam 1</a></li>
-                                        <li><a href="index-2.html">Scam 2</a></li>
-                                        <li><a href="index-3.html">Scam 3</a></li>
-                                        <li><a href="index-4.html">scam 4</a></li>
-                                        <li><a href="index-5.html">scam 5</a></li>
+                                        <li><a href="{{route('report-scams.index')}}">Report Index</a></li>
+                                        <li><a href="{{route('report-scams.export-to-csv')}}">Export to CSV</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="{{route ('about')}}">About</a> </li>
-                                <li><a href="services.html">Services</a></li>
-                                <li><a href="cases-grid.html">Case Study</a></li>
-                                <li><a href="news.html">News</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{route ('report-scams.create')}}">Open a new case</a></li>
+                                <li><a href="cases-grid.html">Predict a scam</a></li>
                             </ul>
                         </div>
                     </div>
@@ -355,10 +351,18 @@
     <script src="{{asset('theme/assets/js/ajax-mail.js')}}"></script>
     <script src="{{asset('theme/assets/js/active.js')}}"></script>
       <!-- https://github.com/CodeSeven/toastr -->
-      
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script type="text/javascript">
            $(document).ready(function(){
+                $('#table_cid').DataTable({
+
+                    buttons: [
+                        'copy', 'excel', 'pdf'
+                    ]
+                });
+               
                toastr.options = {
                    "closeButton": true,
                    "debug": false,

@@ -12,7 +12,7 @@
 
     <section class="case-study-wrapper section-padding">
         <div class="container">
-            <div class="row mb-50 align-items-center">
+            <div class="row mb-4 align-items-center">
                 <div class="col-12 col-md-5">
                     <div class="section-title">
                         <p>{{$report_scams->count()}} Scam Report Cases</p>
@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="p-4">
                 {{$report_scams->links()}}
             </div>
             
