@@ -117,6 +117,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="main-header-wraper">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-between">
@@ -200,6 +201,9 @@
                 </div>
             </div>
         </div>
+=======
+        <x-navigation-menu/>
+>>>>>>> origin/main
     </header> 
     <section class="page-banner-wrap bg-cover" style="background-image: url('assets/img/page-banner.jpg')">
         <div class="banner-text">{{config('app.name')}}</div>
@@ -245,88 +249,8 @@
         @endif
         {{ $slot }}    
     </main>
+    <x-footer-menu/>
 
-    <footer class="footer-3 mt-4  p-0 footer-wrap bg-cover" style="background-image: url({{asset('theme/assets/img/home3/footerbg.jpg')}})">
-        <div class="footer-widgets p-0">            
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-md-6 col-xl-3 col-12 pr-xl-4">
-                        <div class="single-footer-wid site_footer_widget">
-                            <a href="/">
-                                <img src="{{asset('theme/assets/img/footer-whitel-logo.png')}}" alt="">
-                            </a>
-                            <p class="mt-4">Sed ut perspiciatis unde omnis natus voluptatem accusa ntiumy doloremque laudantium.omnis natus voluptatem accusa ntiumy doloremque laudantium</p>
-                            <div class="social-link mt-30">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-behance"></i></a>
-                                <a href="#"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div> <!-- /.col-lg-3 - single-footer-wid -->
-                    <div class="col-md-6 col-xl-2 col-12">                        
-                        <div class="single-footer-wid">
-                            <div class="wid-title">
-                                <h4>Company</h4>
-                            </div>
-                            <ul>
-                                <li><a href="{{route ('about')}}">About Us</a></li>
-                                <li><a href="{{route ('about')}}">Company History</a></li>
-                                <li><a href="contact.html">Need a Career</a></li>
-                                <li><a href="project-details.html">Working Process</a></li>
-                                <li><a href="news.html">Blog Post</a></li>
-                            </ul>
-                        </div>
-                    </div> <!-- /.col-lg-3 - single-footer-wid -->
-                    <div class="col-md-6 col-xl-2 col-12">                        
-                        <div class="single-footer-wid">
-                            <div class="wid-title">
-                                <h4>Company</h4>
-                            </div>
-                            <ul>
-                                <li><a href="{{route ('about')}}">About Us</a></li>
-                                <li><a href="{{route ('about')}}">Company History</a></li>
-                                <li><a href="contact.html">Need a Career</a></li>
-                                <li><a href="project-details.html">Working Process</a></li>
-                                <li><a href="news.html">Blog Post</a></li>
-                            </ul>
-                        </div>
-                    </div> <!-- /.col-lg-3 - single-footer-wid -->
-                    <div class="col-md-6 col-xl-3 col-12">
-                        <div class="single-footer-wid recent_post_widget">
-                            <div class="wid-title">
-                                <h4>News News</h4>
-                            </div>
-                            <div class="recent-post-list">
-                                <div class="single-recent-post">
-                                    <div class="thumb bg-cover" style="background-image: url({{asset('theme/assets/img/blog/b1.jpg')}};"></div>
-                                    <div class="post-data">
-                                        <span><i class="fal fa-calendar-alt"></i>24th Nov 2020</span>
-                                        <h5><a href="news-details.html">User’s Perspes Using Story Structure</a></h5>
-                                    </div>
-                                </div>
-                                <div class="single-recent-post">
-                                    <div class="thumb bg-cover" style="background-image: url({{asset('theme/assets/img/blog/b2.jpg')}};"></div>
-                                    <div class="post-data">
-                                        <span><i class="fal fa-calendar-alt"></i>15th July 2021</span>
-                                        <h5><a href="news-details.html">Optimiz For Assistive Technology Users</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- /.col-lg-3 - single-footer-wid -->
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="container text-center">
-                <div class="footer-bottom-content text-white">
-                    <p>© 2021 <a href="index.html">Techex</a>. All Rights Reserved</p>
-                </div>
-            </div>
-        </div>
-    </footer>
     @stack('modals')
 
     @livewireScripts
