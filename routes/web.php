@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportScamController;
 use App\Http\Livewire\ReportScams\ExportToCsv;
+use App\Http\Livewire\Predict\SpamEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::middleware([
     })->name('dashboard');
 });
 Route::get('report-scams/export-to-csv', ExportToCsv::class)->name('report-scams.export-to-csv');
+Route::get('predict/spam-email', SpamEmail::class)->name('predict.spam-email');
+
 Route::resource('report-scams', ReportScamController::class);
 Route::get('/about', function () {
     return view('about');
