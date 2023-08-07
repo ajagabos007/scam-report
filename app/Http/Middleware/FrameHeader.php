@@ -16,9 +16,6 @@ class FrameHeader
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
-        $response->header('X-Frame-Options', 'SAMEORIGIN');
-        return $response;
-        // return $next($request);
+        return $next($request);
     }
 }

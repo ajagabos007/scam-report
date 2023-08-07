@@ -23,10 +23,10 @@
                                     </ul>
                                 </li>
                                 <li><a href="{{route ('about')}}">About</a> </li>
-                                <li><a href="{{route ('report-scams.create')}}">Open a new case</a></li>
+                                <li><a href="{{route ('report-scams.create')}}">Report a scam</a></li>
                                 
-                              {{--  <li><a href="{{route ('predict.spam-email')}}">Predict Spam Email</a></li> --}}
-                                <li><a href="http://127.0.0.1:8000/scam-report/api/upload-file">Predict Spam Email</a></li>
+                              {{--  <li><a href="{{route ('predict.spam-email')}}">Predict spam email</a></li> --}}
+                                <li><a href="http://127.0.0.1:8000/scam-report/api/upload-file">Predict spam email</a></li>
                             </ul>
                         </div>
                     </div>
